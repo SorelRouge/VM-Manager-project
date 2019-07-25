@@ -98,7 +98,7 @@ $object->connexion(); */
           "os" => "Linux", 
           "status" => "Off",
           "type" => "VM",
-          "comment" => "Ceci est la machine 1",
+          "comment" => "Ceci est la machine 2",
           "port" => "1790");
           /* print_r ($machine); */
 
