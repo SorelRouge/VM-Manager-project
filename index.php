@@ -114,6 +114,5 @@ $object->connexion(); */
 
       
     </div>            
-  </section>
   </body>
 </html>
