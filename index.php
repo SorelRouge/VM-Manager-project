@@ -75,6 +75,15 @@ $object->connexion(); */
       <div class="column is-three-quarters is-centered">
         <h2 class="subtitle has-text-centered">Informations machine selectionnée</h2>
       <br><br>   
+
+<!-- Espace affichant les informations relatives à la machine selectionnées -->
+
+<div>
+
+</div>
+
+
+      <!-- Formulaire de connexion à la machine selectionnée -->
         <div class="connectMachine">
           <form action="POST">
             <div class="field">
