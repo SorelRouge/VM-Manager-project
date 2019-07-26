@@ -97,8 +97,7 @@ $object->connexion(); */
           <br>
           <button class="button is-info">Se connecter</button>
         </div> 
-
-
+        
         <br><br>
 <!-- Affichage requêtes php -->
         <div>
