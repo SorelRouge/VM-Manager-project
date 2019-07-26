@@ -1,3 +1,4 @@
+/* Création de tables */
 CREATE TABLE machines
 (
     name varchar(20),
@@ -7,7 +8,7 @@ CREATE TABLE machines
     comment varchar(100),
     port int
 );
-
+/* insertion dans une table */
 INSERT INTO machines VALUES 
     (
         'Machine1', 
@@ -17,5 +18,5 @@ INSERT INTO machines VALUES
         'Ceci est la machine 1', 
         1755
     );
-
+/* suppréssion d'un champs */
 DELETE FROM machines where name = 'Machine2';
