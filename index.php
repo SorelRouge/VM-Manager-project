@@ -78,11 +78,51 @@ $object->connexion(); */
 
 <!-- Espace affichant les informations relatives à la machine selectionnées -->
 
-<div>
+<div class="subtitle-2 has-text-centered" id="displayInfos">
+<?php
+$listeMachines = listerMachines();
 
-</div>
+    $mysqli = Dbh::connexion();
+    /* $records = $mysqli->query("SELECT * FROM machines WHERE id = '".$q."'"); */
+    $SQL = "SELECT * FROM machines WHERE id = '".$q."'";
+
+    /* mysqli_select_db($mysqli,"ajax_demo"); */
+    /* $sql="SELECT * FROM machines WHERE id = '".$q."'"; */
+    $result = mysqli_query($mysqli, $SQL);
+    ?>
+    <!-- <h2>Name :  <?php print_r ($listeMachines[0]['name'])?></h2>
+
+    <h2>OS :  <?php print_r ($listeMachines[0]['os'])?></h2> -->
+
+    echo "<table>
+    <tr>
+    <th>Name</th>
+    <th>Os</th>
+    <th>Status</th>
+    <th>Comment</th>
+    <th>Port</th>
+    </tr>";
+
+    <?php
+    $q = intval($_GET['q']);
+    while($row = mysqli_fetch_array($result)) {
+        echo "<tr>";
+        echo "<td>" . $row['name'] . "</td>";
+        echo "<td>" . $row['os'] . "</td>";
+        echo "<td>" . $row['status'] . "</td>";
+        echo "<td>" . $row['comment'] . "</td>";
+        echo "<td>" . $row['port'] . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+    ?>
+    </div>
 
 
+
+
+
+<br><br><br><br>
       <!-- Formulaire de connexion à la machine selectionnée -->
         <div class="connectMachine">
           <form action="POST">
@@ -99,28 +139,64 @@ $object->connexion(); */
         </div> 
         
         <br><br>
+
+
+
+
 <!-- Affichage requêtes php -->
         <div>
           <?php
-          $machine = array("name" =>"Machine2",
+          /* $machine = array("name" =>"Machine2",
           "os" => "Linux", 
           "status" => "Off",
           "type" => "VM",
           "comment" => "Ceci est la machine 2",
           "port" => "1790");
-          /* print_r ($machine); */
+          print_r ($machine);  */
 
           /* ajouterMachine($machine); */
           
           $listeMachines = listerMachines();
-          afficherTableau($listeMachines);
-
+          /* afficherTableau($listeMachines); */
+          print_r ($listeMachines[0]['name']); 
+          ?>
+          <br><br>
+          <?php
+          print_r ($listeMachines);
           ?>
         </div>
+
 
       </div>
 
       
-    </div>            
+    </div>  
+
+
+
+    <!-- The function is triggered by the onchange event -->
+    <script>
+      function showMachine(str) {
+          if (str == "") {
+              document.getElementById("displayInfos").innerHTML = "";
+              return;
+          } else {
+              if (window.XMLHttpRequest) {
+                  // code for IE7+, Firefox, Chrome, Opera, Safari
+                  xmlhttp = new XMLHttpRequest();
+              } else {
+                  // code for IE6, IE5
+                  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+              }
+              xmlhttp.onreadystatechange = function() {
+                  if (this.readyState == 4 && this.status == 200) {
+                      document.getElementById("displayInfos").innerHTML = this.responseText;
+                  }
+              };
+              xmlhttp.open("GET","requetes.php?q="+str,true);
+              xmlhttp.send();
+          }
+      }
+</script>         
   </body>
 </html>

@@ -36,7 +36,6 @@ function listerMachines ()
 		$rows[] = $row;
 	}
     return $rows;
-    
 }
 
 /******************* Afiicher ligne *********************/
@@ -98,7 +97,7 @@ function insertIntoDropdown()
     $mysqli = Dbh::connexion();
     $records = $mysqli->query("SELECT name FROM machines");
 
-    echo "<select>";
+    echo "<select name='machines' onchange='showMachine(this.value)'>";
 
     while ($row = $records->fetch_assoc())
     {
