@@ -2,11 +2,6 @@
 <?php
 
 include ("requetes.php");
-/* echo 'hello from Docker';
-print_r(PDO::getAvailableDrivers()); */
-
-/* $object = new Dbh;
-$object->connexion(); */
 
 ?>
 
@@ -14,6 +9,7 @@ $object->connexion(); */
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>VMManager</title>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"> -->
     <link rel="stylesheet" type="text/css" href="/front/css/main.css">
@@ -21,6 +17,7 @@ $object->connexion(); */
   </head>
   <body>
 
+<!------------ HEADER --------->
   <section class="hero is-info">
     <div class="hero-body">
       <div calss="container">
@@ -33,7 +30,9 @@ $object->connexion(); */
       </div>
     </div>
   </section>
+<!------------ END HEADER --------->
 
+<!----------- FIRST COLOMN -------->
   <section class="column is-three-fifths is-offset-one-fifth">
     <div class="columns"> 
       <div class="column">  
@@ -51,9 +50,6 @@ $object->connexion(); */
               /* echo ($inserted);  */
               ?>
                
-
-
-              <!-- </select> -->
             </div>
           </div>
         </div>
@@ -72,57 +68,19 @@ $object->connexion(); */
         <button class="button is-info">Rechercher</button>
       </div>
 
+<!----------- SECOND COLOMN -------->
       <div class="column is-three-quarters is-centered">
         <h2 class="subtitle has-text-centered">Informations machine selectionnée</h2>
-      <br><br>   
+        <br>  
+
 
 <!-- Espace affichant les informations relatives à la machine selectionnées -->
 
-<div class="subtitle-2 has-text-centered" id="displayInfos">
-<?php
-$listeMachines = listerMachines();
-
-    $mysqli = Dbh::connexion();
-    /* $records = $mysqli->query("SELECT * FROM machines WHERE id = '".$q."'"); */
-    $SQL = "SELECT * FROM machines WHERE id = '".$q."'";
-
-    /* mysqli_select_db($mysqli,"ajax_demo"); */
-    /* $sql="SELECT * FROM machines WHERE id = '".$q."'"; */
-    $result = mysqli_query($mysqli, $SQL);
-    ?>
-    <!-- <h2>Name :  <?php print_r ($listeMachines[0]['name'])?></h2>
-
-    <h2>OS :  <?php print_r ($listeMachines[0]['os'])?></h2> -->
-
-    echo "<table>
-    <tr>
-    <th>Name</th>
-    <th>Os</th>
-    <th>Status</th>
-    <th>Comment</th>
-    <th>Port</th>
-    </tr>";
-
-    <?php
-    $q = intval($_GET['q']);
-    while($row = mysqli_fetch_array($result)) {
-        echo "<tr>";
-        echo "<td>" . $row['name'] . "</td>";
-        echo "<td>" . $row['os'] . "</td>";
-        echo "<td>" . $row['status'] . "</td>";
-        echo "<td>" . $row['comment'] . "</td>";
-        echo "<td>" . $row['port'] . "</td>";
-        echo "</tr>";
-    }
-    echo "</table>";
-    ?>
-    </div>
+        <div class="subtitle-2 has-text-centered" id="displayInfos">
+        </div>
 
 
-
-
-
-<br><br><br><br>
+      <br><br>
       <!-- Formulaire de connexion à la machine selectionnée -->
         <div class="connectMachine">
           <form action="POST">
@@ -140,63 +98,31 @@ $listeMachines = listerMachines();
         
         <br><br>
 
+        <div id="infosMachines">
+        <?php
+    
+        ?>
 
-
-
-<!-- Affichage requêtes php -->
-        <div>
-          <?php
-          /* $machine = array("name" =>"Machine2",
-          "os" => "Linux", 
-          "status" => "Off",
-          "type" => "VM",
-          "comment" => "Ceci est la machine 2",
-          "port" => "1790");
-          print_r ($machine);  */
-
-          /* ajouterMachine($machine); */
-          
-          $listeMachines = listerMachines();
-          /* afficherTableau($listeMachines); */
-          print_r ($listeMachines[0]['name']); 
-          ?>
-          <br><br>
-          <?php
-          print_r ($listeMachines);
-          ?>
         </div>
-
 
       </div>
 
-      
-    </div>  
-
-
-
-    <!-- The function is triggered by the onchange event -->
-    <script>
-      function showMachine(str) {
-          if (str == "") {
-              document.getElementById("displayInfos").innerHTML = "";
-              return;
-          } else {
-              if (window.XMLHttpRequest) {
-                  // code for IE7+, Firefox, Chrome, Opera, Safari
-                  xmlhttp = new XMLHttpRequest();
-              } else {
-                  // code for IE6, IE5
-                  xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-              }
-              xmlhttp.onreadystatechange = function() {
-                  if (this.readyState == 4 && this.status == 200) {
-                      document.getElementById("displayInfos").innerHTML = this.responseText;
-                  }
-              };
-              xmlhttp.open("GET","requetes.php?q="+str,true);
-              xmlhttp.send();
-          }
-      }
-</script>         
+<script>
+function showMachine(str) {
+  if (str == "") {
+      document.getElementById("displayInfos").innerHTML = "";
+      return;
+  } 
+  xmlhttp = new XMLHttpRequest();  
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("displayInfos").innerHTML = this.responseText;
+    }
+  };
+  xmlhttp.open("GET","displayMachines.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
+       
   </body>
 </html>

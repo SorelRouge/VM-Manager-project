@@ -1,6 +1,7 @@
 <?php
 include ("dbh.inc.php"); 
 
+
 /***************** Ajout de champs dans la tabble *******************/
 function ajouterMachine ($uneMachine)
 { 
@@ -22,6 +23,7 @@ function ajouterMachine ($uneMachine)
     }
 }; 
 
+
 /******************* Lecture d'une table ***********************/
 function listerMachines ()
 {
@@ -38,6 +40,7 @@ function listerMachines ()
     return $rows;
 }
 
+
 /******************* Afiicher ligne *********************/
 function afficherLigne ($ligne, $premiereLigne=FALSE)
 {
@@ -51,6 +54,8 @@ function afficherLigne ($ligne, $premiereLigne=FALSE)
     }
     echo indenter (FALSE), "</tr>", PHP_EOL;
 }
+
+
 /**************** indenter ****************/
 function indenter ($x = null)
 {
@@ -72,6 +77,7 @@ function indenter ($x = null)
     return str_repeat(" ", $inc * $tab);
 };
 
+
 /*************** afficher un tableau *********************/
 function afficherTableau ($donnees, $attributs=array())
 {
@@ -90,24 +96,59 @@ function afficherTableau ($donnees, $attributs=array())
     echo indenter (FALSE), "</table>", PHP_EOL;
 }
 
-/*************** Incrémentation du menu dropdown depuis la BDD ***************/
 
+/*************** Incrémentation du menu dropdown depuis la BDD ***************/
 function insertIntoDropdown()
 {
     $mysqli = Dbh::connexion();
-    $records = $mysqli->query("SELECT name FROM machines");
-
-    echo "<select name='machines' onchange='showMachine(this.value)'>";
-
+    $records = $mysqli->query("SELECT * FROM machines");
+    echo "<select name='machines' onchange=showMachine(this.value)>";
+    echo "<option value=\"\">Select a machine</option>";
     while ($row = $records->fetch_assoc())
     {
         unset($name);
         $name = $row['name'];
-        echo "<option value=\"\">" . $name . "</option>";
+        $id = $row['id'];
+        echo "<option value=\"$id\">" . $name . "</option>";
     }
-
+    
     echo "</select>";
 }
 
-?> 
+
+/********* récupération des ids des machines ********/
+function getIdsMachines()
+            {
+              $machinesIds = [];
+              $listeMachines = listerMachines();
+              foreach ($listeMachines as $ligne)
+              {
+                foreach ($ligne as $key => $value)
+                {
+                    if ($key == 'id'){
+                      
+                      echo $value;
+                    } 
+                }
+              } 
+            }
+
+
+/************** display machines infos *************/
+function getMachines() 
+{
+    $myDB = Dbh::connexion ();
+    $SQL = "SELECT * FROM machines";
+    $result = $myDB->query($SQL);
+    if (mysqli_num_rows($result) > 0){
+        while ($row = mysqli_fetch_assoc($result)) {
+          echo "<p>";
+          echo "Nom : ".$row['name'];
+          echo "<br>";
+          echo "OS : ".$row['os'];
+          echo "<p>";
+        }
+    }
+}
+?>
 
