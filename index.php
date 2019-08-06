@@ -2,6 +2,7 @@
 <?php
 
 include ("requetes.php");
+include ("vm/virtualmachines1.php");
 
 ?>
 
@@ -99,14 +100,68 @@ include ("requetes.php");
         <br><br>
 
         <div id="infosMachines">
-        <?php
-    
-        ?>
-
         </div>
 
+
+
+
+        <!------------ QUELQUES TEST ------------>
+<?php
+$vms = new SimpleXMLElement($xmlstr);
+/* print_r ($vms); */
+/* print_r ($vms->CONTENT->children()); */
+$virtual2 = $vms->CONTENT->children();
+print_r ($virtual2[4]->COMMENT);
+/* foreach ($vms->CONTENT->children() as $virtual) 
+{ 
+  echo "Comment : ".$virtual->COMMENT . "<br>";
+  echo "Mac : ".$virtual->MAC . "<br>";
+  echo "Memory : ".$virtual->MEMORY . "<br>";  
+  echo "Name : ".$virtual->NAME . "<br>"; 
+  echo "Status : ".$virtual->STATUS . "<br>";
+} 
+ */
+
+
+
+/* *********************************************************** */
+/* requête de mise à jour de la BDD à partir du fichier XML */
+function machineFromXml($vms)
+{ 
+  foreach ($vms->CONTENT->children() as $virtual){
+    $mysqli = Dbh::connexion();
+      /* utilisation */
+    $SQL = "INSERT INTO virtualmachines (comment, mac, memory, name, status, uuid, vcpu, vmid, vmtype) VALUES (?,?,?,?,?,?,?,?,?)";
+    /* préparation */
+    $stmt=$mysqli->prepare($SQL);
+    /* bind variable à la préparation */
+    $stmt->bind_param('ssisssiss', 
+    $virtual->COMMENT ["comment"], 
+    $virtual->MAC ["mac"], 
+    $virtual->MEMORY ["status"], 
+    $virtual->NAME ["type"], 
+    $virtual->STATUS ["comment"], 
+    $virtual->UUID ["port"], 
+    $virtual->VCPU ["vcpu"], 
+    $virtual->VMID ["vmid"], 
+    $virtual->VMTYPE ["vmtype"]);
+    /* execution */
+    $ok = $stmt->execute ();
+    /* fermeture de l'ordre */
+    $stmt->close();
+    if($ok)
+    {
+        $mysqli->commit();
+    }
+  }
+};
+/* machineFromXml($vms); */
+?>
       </div>
 
+
+
+<!-- Script por l'affichage des infos machines - AJAX -->
 <script>
 function showMachine(str) {
   if (str == "") {
@@ -123,6 +178,6 @@ function showMachine(str) {
   xmlhttp.send();
 }
 </script>
-       
+           
   </body>
 </html>

@@ -150,5 +150,6 @@ function getMachines()
         }
     }
 }
+
 ?>
 
