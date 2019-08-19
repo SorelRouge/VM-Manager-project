@@ -8,12 +8,12 @@ $xmlstr = <<<XML
       <MAC>00:50:56:bf:22:db</MAC>
       <MEMORY>2048</MEMORY>
       <NAME>IPF7021</NAME>
-      <STATUS>running</STATUS>
+      <STATUS>runninggg</STATUS>
       <UUID>423f3aff-0adf-866d-7275-c2d6dceed470</UUID>
       <VCPU>1</VCPU>
       <VMID>vm-10122</VMID>
       <VMTYPE>VMware</VMTYPE>
-    </VIRTUALMACHINES>
+    </VIRTUALMACHINES> 
     <VIRTUALMACHINES>
       <COMMENT>Filer bureautique</COMMENT>
       <MAC>00:50:56:bf:70:86</MAC>
@@ -2766,7 +2766,21 @@ $xmlstr = <<<XML
       <VCPU>5</VCPU>
       <VMID>vm-21785</VMID>
       <VMTYPE>VMware</VMTYPE>
-    </VIRTUALMACHINES>
+    </VIRTUALMACHINES> 
+
+
+<!--     <VIRTUALMACHINES>
+      <COMMENT>test2</COMMENT>
+      <MAC>00:12:29:f7:3c:ac</MAC>
+      <MEMORY>174</MEMORY>
+      <NAME>SVVSA-CZ3fdfd736PWB8</NAME>
+      <STATUS>RUN</STATUS>
+      <UUID>56539e-b1cd-5672-71ed-d2922ff73cac</UUID>
+      <VCPU>5</VCPU>
+      <VMID>vm-2178</VMID>
+      <VMTYPE>VMware</VMTYPE>
+    </VIRTUALMACHINES>  -->
+
   </CONTENT>
   <DEVICEID>172.16.251.2-2018-01-16-15-38-25</DEVICEID>
   <QUERY>INVENTORY</QUERY>

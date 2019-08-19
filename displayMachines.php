@@ -1,49 +1,41 @@
 <?php
 include ("dbh.inc.php"); 
 
+
+/* appel à la BDD, requête et affichage des infos des machines  */
+/* version 2 */
 $myDB = Dbh::connexion ();
-$sql = "SELECT * FROM machines WHERE id = ?";
+$sql = "SELECT * FROM virtualmachines WHERE vmid = ?";
 
 $stmt = $myDB->prepare($sql);
 $stmt->bind_param("s", $_GET['q']);
 $stmt->execute();
 $stmt->store_result();
-$stmt->bind_result($id, $name, $os, $status, $type, $comment, $port);
+$stmt->bind_result($comment, $mac, $memory, $name, $status, $uuid, $vcpu, $vmid, $vmtype, $date_insert, $date_update);
 $stmt->fetch();
 $stmt->close();
 
-/* echo "<table>";
-echo "<tr>";
-echo "<th>ID</th>";
-echo "<td>" . $id . "</td>";
-echo "<th>Name</th>";
-echo "<td>" . $name . "</td>";
-echo "<th>OS</th>";
-echo "<td>" . $os . "</td>";
-echo "<th>Status</th>";
-echo "<td>" . $status . "</td>";
-echo "<th>Type</th>";
-echo "<td>" . $type . "</td>";
-echo "<th>Comment</th>";
-echo "<td>" . $comment . "</td>";
-echo "<th>Port</th>";
-echo "<td>" . $port . "</td>";
-echo "</tr>";
-echo "</table>"; */
-
-echo "<p>Name : ".$name;
+echo "<p>Comment : ".$comment;
 echo "<br>";
-echo "<p>OS : ".$os;
+echo "<p>Mac : ".$mac;
+echo "<br>";
+echo "<p>Memory : ".$memory;
+echo "<br>";
+echo "<p>Name : ".$name;
 echo "<br>";
 echo "<p>Status : ".$status;
 echo "<br>";
-echo "<p>Type : ".$type;
+echo "<p>UUID : ".$uuid;
 echo "<br>";
-echo "<p>Comment : ".$comment;
+echo "<p>VCPU : ".$vcpu;
 echo "<br>";
-echo "<p>Port : ".$port;
+echo "<p>VMID : ".$vmid;
 echo "<br>";
-
-
+echo "<p>VMTYPE : ".$vmtype;
+echo "<br>";
+echo "<p>Date d'ajout : ".$date_insert;
+echo "<br>";
+echo "<p>Dernier update : ".$date_update;
+echo "<br>";
 
 ?>

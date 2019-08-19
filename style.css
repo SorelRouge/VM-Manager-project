@@ -1,18 +1,21 @@
-.display {
-    display: flex;
-    flex-direction: column;
+
+
+#bouton {
+    margin: 1%;
+    margin-left: 0;
 }
 
-.machineList {
-    background-color: bisque;
-    /* width: 30%; */
+#bouton2 {
+    margin: 1%;
 }
 
-.machineSelected {
-    background-color: aqua;
-    width: 70%;
-}
+/* #infosMachine {
+    height: 20%;
+    width: 50%;
+    border: solid;
+} */
 
-body {
-    background-color: beige;
+
+#columns{
+    background-color: #3D9970;
 }
