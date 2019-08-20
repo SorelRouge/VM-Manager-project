@@ -2,45 +2,60 @@
 include ("dbh.inc.php"); 
 
 
-/*************** Incrémentation du menu dropdown depuis la BDD ***************/
-/* AFFICHE LES COMMENT */
-function insertIntoDropdown()
+
+/* FONCTIONS LISTE BULMA */
+/* TRI PAR VMID */
+function insertIntoList()
+{
+    $mysqli = Dbh::connexion();
+    $records = $mysqli->query("SELECT * FROM virtualmachines ORDER BY vmid");
+    echo "<div class='scrollDiv is-info'>";
+    while ($row = $records->fetch_assoc())
+    {
+        unset($name);
+        $name = $row['name'];
+
+        $id = $row['vmid'];
+        echo "<a id=\"$id\" class=panel-block is-active onclick=showMachine(this.id)>" . $id . "</a>";
+    }
+    
+    echo "</div>";
+} 
+
+/* TRI PAR COMMENT */
+function insertIntoList2()
 {
     $mysqli = Dbh::connexion();
     $records = $mysqli->query("SELECT * FROM virtualmachines ORDER BY comment");
-    echo "<select name='machines' onchange=showMachine(this.value)>";
-    echo "<option value=\"\">Select a machine</option>";
+    echo "<div class='scrollDiv is-info'>";
     while ($row = $records->fetch_assoc())
     {
         unset($name);
         $name = $row['comment'];
+
         $id = $row['vmid'];
-        echo "<option value=\"$id\">" . $name . "</option>";
+        echo "<a id=\"$id\" class=panel-block is-active onclick=showMachine(this.id)>" . $name . "</a>";
     }
     
-    echo "</select>";
+    echo "</div>";
 }
 
-
-/* AFFICHE LES VMID */
-function insertIntoDropdown2()
+/* TRI PAR DATE D'UPDATE */
+function insertIntoList3()
 {
     $mysqli = Dbh::connexion();
-    $records = $mysqli->query("SELECT * FROM virtualmachines ORDER BY vmid");
-    echo "<select name='machines' onchange=showMachine(this.value)>";
-    echo "<option value=\"\">Select a machine</option>";
+    $records = $mysqli->query("SELECT * FROM virtualmachines ORDER BY date_update DESC");
+    echo "<div class='scrollDiv is-info'>";
     while ($row = $records->fetch_assoc())
     {
         unset($name);
-        /* $name = $row['comment']; */
+        $name = $row['date_update'].' '.$row['vmid'];
         $id = $row['vmid'];
-        echo "<option value=\"$id\">" . $id . "</option>";
+        echo "<a id=\"$id\" class=panel-block is-active onclick=showMachine(this.id)>" . $name . "</a>";
     }
     
-    echo "</select>";
+    echo "</div>";
 }
-
-
 /* requête d'insert dans la BDD à partir du fichier XML */
 function insertFromXml($vms)
 { 

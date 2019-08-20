@@ -8,7 +8,7 @@ $xmlstr = <<<XML
       <MAC>00:50:56:bf:22:db</MAC>
       <MEMORY>2048</MEMORY>
       <NAME>IPF7021</NAME>
-      <STATUS>runninggg</STATUS>
+      <STATUS>running</STATUS>
       <UUID>423f3aff-0adf-866d-7275-c2d6dceed470</UUID>
       <VCPU>1</VCPU>
       <VMID>vm-10122</VMID>

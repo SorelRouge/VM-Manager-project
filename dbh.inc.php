@@ -16,7 +16,8 @@ class Dbh
         {
             self::$_instance = new mysqli(self::$myServer, self::$myUser, self::$myPassword, self::$myDB, self::$myPort);
                 /* check connection */
-            if (self::$_instance->connect_errno) {
+            if (self::$_instance->connect_errno) 
+            {
                 printf("Connection failed: %s\n", self::$_instance->connect_error);
                 exit();
             }

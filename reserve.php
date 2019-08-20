@@ -89,6 +89,49 @@ function listerMachines ()
         }
     }
 } */
-            
-            
+
+
+
+/*******************************  **********************************/
+
+/*************** Incrémentation du menu dropdown depuis la BDD ***************/
+/* AFFICHE LES COMMENT */
+function insertIntoDropdown()
+{
+    $mysqli = Dbh::connexion();
+    $records = $mysqli->query("SELECT * FROM virtualmachines ORDER BY comment");
+    echo "<select name='machines' onchange=showMachine(this.value)>";
+    echo "<option value=\"\">Select a machine</option>";
+    while ($row = $records->fetch_assoc())
+    {
+        unset($name);
+        $name = $row['comment'];
+        $id = $row['vmid'];
+        echo "<option value=\"$id\">" . $name . "</option>";
+    }
+    
+    echo "</select>";
+}
+
+
+/* AFFICHE LES VMID */
+function insertIntoDropdown2()
+{
+    $mysqli = Dbh::connexion();
+    $records = $mysqli->query("SELECT * FROM virtualmachines ORDER BY vmid");
+    echo "<select name='machines' onchange=showMachine(this.value)>";
+    echo "<option value=\"\">Select a machine</option>";
+    while ($row = $records->fetch_assoc())
+    {
+        unset($name);
+        /* $name = $row['comment']; */
+        $id = $row['vmid'];
+        echo "<option value=\"$id\">" . $id . "</option>";
+    }
+    
+    echo "</select>";
+}
+
+
+/****************************** index.html ANCIENNE PARTIE DROPDOWN MENU  *****************************/
 ?>

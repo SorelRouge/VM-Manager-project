@@ -33,40 +33,67 @@ include ("vm/virtualmachines1.php");
     </div>
   </section>
       <!------------ END HEADER --------->
-
+<br>
       <!----------- FIRST COLOMN -------->
     <div class="columns" id="columns"> 
       <div class="column is-3 is-offset-1"> 
 
-      <form id="bouton" name="bouton" method="post" action="#">
-          <label>
-            <input class="button is-focused is-info" type="submit" name="valid" id="bouton" value="VMID" />
+        <!-- NOUVELLE LISTE -->
+      <nav class="panel">
+        <p class="panel-heading">
+          Liste des machines
+        </p>
+        <div class="panel-block">
+          <p class="control has-icons-left">
+            <input class="input is-small" type="text" placeholder="search">
+            <span class="icon is-small is-left">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+          </p>
+        </div>
+        <!-- <p class="panel-tabs"> -->
+        <div class="panel-block">
+        <form class="divFlex" id="bouton" name="bouton" method="post" action="#">
+          <label class="label">
+            <input  class="button is-info" type="submit" name="valid" id="bouton" value="VM-ID" />
           </label>
-          <label>
-            <input class="button is-focused is-info" type="submit" name="valid2" id="bouton2" value="Project" />
+      
+          <label class="label2">
+            <input class="button is-info" type="submit" name="valid2" id="bouton2" value="Projet" />
           </label>
-        </form>  
-         
-        <div class="field">
-          <div class="control">
-            <div class="select is-info" id="machinesList">
 
-              <?php
+          <label class="label3">
+            <input class="button is-info" type="submit" name="valid3" id="bouton3" value="Dernière update" />
+          </label>
+
+        </form>
+        </div>
+        <!-- </p> -->
+        <?php
               if (isset($_POST['valid'])) 
               {
-                if ($_POST['valid'] == "VMID") 
+                if ($_POST['valid'] == "VM-ID") 
                 {
-                  insertIntoDropdown2();
+                  insertIntoList();
                 } 
-              } else if ($_POST['valid2'] == "Project")
+              } else if ($_POST['valid2'] == "Projet")
                 {
-                insertIntoDropdown();
-                }  
+                  insertIntoList2();
+                } else if ($_POST['valid3'] == "Dernière update")
+                  {
+                    insertIntoList3();
+                  }   
               ?>
-               
-            </div>
-          </div>
+        <?php
+        /* insertIntoList(); */
+        ?>
+
+        <div class="panel-block">
+          <button class="button is-link is-outlined is-fullwidth">
+            reset all filters
+          </button>
         </div>
+      </nav>
        
       </div>
   
