@@ -1,3 +1,5 @@
+<!-- FICHIER REGROUPANT DES FONCTIONS UTILISEES EN COURS DE DEVELOPPEMENT MAIS DESORMAIS OBSOLETE -->
+
 <?php
 /***************** Ajout de champs dans la tabble *******************/
 function ajouterMachine ($uneMachine)

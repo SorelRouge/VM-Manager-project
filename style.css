@@ -6,8 +6,11 @@
 #bouton2 #bouton3 {
     margin: 1%;
 } */
+#panelHead{
+    background-color: #209cee;
+}
 .columns {
-    background-color: #fff;
+    background-color: #3D9970;
 }
 .scrollDiv {
     
@@ -17,10 +20,11 @@
 }
 
 .divFlex {
+    max-width: 100%;
     display: flex;
     flex-direction: row;
     margin: 1%;
-}
+} 
 
 .label {
     margin: 3%;
