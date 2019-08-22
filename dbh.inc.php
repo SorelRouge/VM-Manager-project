@@ -25,7 +25,6 @@ class Dbh
         }
         return self::$_instance;
     }
-
     public static function deconnexion ()
     {        
         if (!is_null (self::$_instance))
