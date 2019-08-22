@@ -12,14 +12,13 @@ include ("vm/virtualmachines1.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>VMManager</title>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"> -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="/front/css/main.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
   <body>
 
-  <!------------ HEADER --------->
+  <!-- HEADER -->
   <section class="hero is-info">
     <div class="hero-body">
       <div calss="container">
@@ -32,9 +31,9 @@ include ("vm/virtualmachines1.php");
       </div>
     </div>
   </section>
-      <!------------ END HEADER --------->
+      <!-- END HEADER -->
 
-      <!----------- FIRST COLOMN -------->
+      <!-- FIRST COLOMN -->
   <div class="columns" id="columns"> 
     <div class="column is-3 is-offset-2"> 
       <!-- NOUVELLE LISTE -->
@@ -43,7 +42,7 @@ include ("vm/virtualmachines1.php");
         LISTE DES MACHINES
       </p>
       <div class="column panel-block">
-        <!--------- FORMULAIRE DE RECHERCHE DANS LA LISTE --------->
+        <!-- FORMULAIRE DE RECHERCHE DANS LA LISTE -->
         <form method="post">
           <p class="control has-icons-left">
             <input class="input" type="text" name="search" placeholder="search">
@@ -57,8 +56,6 @@ include ("vm/virtualmachines1.php");
       </div>
 
 
-
-      <!-- <p class="panel-tabs"> -->
       <div class="panel-block">
       <form class="divFlex" id="bouton" name="bouton" method="post" action="">
         <label class="label">
@@ -99,10 +96,9 @@ include ("vm/virtualmachines1.php");
         ?>
 
     </nav>
-      
     </div>
 
-      <!----------- SECOND COLOMN -------->
+      <!-- SECOND COLOMN -->
       <div class="column is-3 is-offset-1" id="infosMachine">
         <br>
         <h2 class="subtitle has-text-centered">INFORMATIONS MACHINE SELECTIONNÉE</h2>
@@ -110,8 +106,6 @@ include ("vm/virtualmachines1.php");
         <!-- Espace affichant les informations relatives à la machine selectionnées -->
         <div class="subtitle-2 has-text-centered" id="displayInfos">
         </div>
-      
-
 
         <br><br><br><br>
         <!-- Formulaire de connexion à la machine selectionnée -->
@@ -134,13 +128,13 @@ include ("vm/virtualmachines1.php");
           <div id="infosMachines">
           </div>
 
-      <!------------ CREATION DE L'OBJET D'APPEL AU DOC XML------------>
+      <!-- CREATION DE L'OBJET D'APPEL AU DOC XML -->
     <?php
-    $vms = new SimpleXMLElement($xmlstr);                                 
-    insertFromXml($vms);
+    insertFromXml();
     ?>
 
   </div>
+
 
 <!-- Script por l'affichage des infos machines - AJAX -->
 <script>

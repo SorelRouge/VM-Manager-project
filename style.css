@@ -1,17 +1,11 @@
-/* #bouton {
-    margin: 1%;
-    margin-left: 0;
-}
-
-#bouton2 #bouton3 {
-    margin: 1%;
-} */
 #panelHead{
     background-color: #209cee;
 }
+
 .columns {
     background-color: #3D9970;
 }
+
 .scrollDiv {
     
     height: 500px;
@@ -20,7 +14,6 @@
 }
 
 .divFlex {
-    max-width: 100%;
     display: flex;
     flex-direction: row;
     margin: 1%;

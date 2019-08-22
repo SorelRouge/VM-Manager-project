@@ -1,9 +1,8 @@
 <?php
 include ("dbh.inc.php"); 
 
-
-
 /* FONCTIONS INSERTION MACHINE DANS LISTE */
+
 /* TRI PAR VMID */
 function insertIntoList()
 {
@@ -48,59 +47,80 @@ function insertIntoList3()
     }
     echo "</div>";
 }
-/* requête d'insert dans la BDD à partir du fichier XML */
-function insertFromXml($vms)
-{ 
-    
-  foreach ($vms->CONTENT->children() as $virtual)
+
+
+/* NOUVELLE FONCTION DE LOOP ET RECUPERATION DE DONNEES DES FICHIERS XML */
+function insertFromXml(){
+  $dossier = 'vmFiles/';
+  $contenu_dossier = scandir($dossier);
+  $iterator = new DirectoryIterator($dossier);
+
+  foreach($iterator as $fichier)
   {
-    $mysqli = Dbh::connexion();
-
-    /* évite les conflits avec les quotes */
-    $comment=$mysqli->real_escape_string($virtual->COMMENT);
-    $mac=$mysqli->real_escape_string($virtual->MAC);
-    $name=$mysqli->real_escape_string($virtual->NAME);
-    $status=$mysqli->real_escape_string($virtual->STATUS);
-
-      /* Requête */
-    $SQL = "INSERT INTO virtualmachines 
-    (comment, mac, memory, name, status, uuid, vcpu, vmid, vmtype, date_insert) 
-    VALUES (?,?,?,?,?,?,?,?,?, NOW()) 
-
-    /* Définition des clés qui sont mises à jour en cas de changement */
-    ON DUPLICATE KEY UPDATE
-    comment='$comment',
-    mac='$mac',
-    memory = $mysqli->quote($virtual->MEMORY),
-    name='$name',
-    status='$status',
-    uuid='$virtual->UUID',
-    vcpu=$mysqli->quote($virtual->VCPU),
-    vmid='$virtual->VMID',
-    vmtype='$virtual->VMTYPE'";
-    /* préparation */
-    $stmt=$mysqli->prepare($SQL);
-    /* bind variable à la préparation */
-    $stmt->bind_param('ssisssiss', 
-    $virtual->COMMENT, 
-    $virtual->MAC, 
-    $virtual->MEMORY, 
-    $virtual->NAME, 
-    $virtual->STATUS, 
-    $virtual->UUID, 
-    $virtual->VCPU, 
-    $virtual->VMID, 
-    $virtual->VMTYPE);
-    /* execution */
-    $ok = $stmt->execute ();
-    /* fermeture de l'ordre */
-    $stmt->close();
-    if($ok)
+    if(!$fichier->isDot())
     {
-        $mysqli->commit();
+      $filesNames = $dossier.$fichier->getFilename();
+     /*  echo $filesNames; */
+      $xmldata = simplexml_load_file($filesNames);
+
+      foreach($xmldata->CONTENT->children() as $virtual) 
+      {         
+        /* echo $virtual->VMID; */
+        $mysqli = Dbh::connexion();
+
+        $comment=$mysqli->real_escape_string($virtual->COMMENT);
+        $mac=$mysqli->real_escape_string($virtual->MAC);
+        $name=$mysqli->real_escape_string($virtual->NAME);
+        $memory=$mysqli->real_escape_string($virtual->MEMORY);
+        $status=$mysqli->real_escape_string($virtual->STATUS);
+        $uuid=$mysqli->real_escape_string($virtual->UUID);
+        $vcpu=$mysqli->real_escape_string($virtual->VCPU);
+        $vmid=$mysqli->real_escape_string($virtual->VMID);
+        $vmtype=$mysqli->real_escape_string($virtual->VMTYPE);
+        /* echo $virt->VMID; */
+
+        /* Requête */
+        $SQL = "INSERT INTO virtualmachines 
+        (comment, mac, memory, name, status, uuid, vcpu, vmid, vmtype, date_insert) 
+        VALUES (?,?,?,?,?,?,?,?,?, NOW()) 
+
+        /* Définition des clés qui sont mises à jour en cas de changement */
+        ON DUPLICATE KEY UPDATE
+        comment='$comment',
+        mac='$mac',
+        memory = '$memory',
+        name='$name',
+        status='$status',
+        uuid='$uuid',
+        vcpu='$vcpu',
+        vmid='$vmid',
+        vmtype='$vmtype'";
+        /* préparation */
+        $stmt=$mysqli->prepare($SQL);
+        /* bind variable à la préparation */
+        $stmt->bind_param('ssisssiss', 
+        $virtual->COMMENT, 
+        $virtual->MAC, 
+        $virtual->MEMORY, 
+        $virtual->NAME, 
+        $virtual->STATUS, 
+        $virtual->UUID, 
+        $virtual->VCPU, 
+        $virtual->VMID, 
+        $virtual->VMTYPE);
+        /* execution */
+        $ok = $stmt->execute ();
+        /* fermeture de l'ordre */
+        $stmt->close();
+        if($ok)
+        {
+          $mysqli->commit();
+        }
+      }
     }
-  };
-};
+  }
+} 
+
 
 /* FONCTION DE RECHERCHE VIA SEARCHBAR */
 function searchBar()
@@ -130,6 +150,7 @@ function searchBar()
       }
   }
 }
+
 ?>
 
 
