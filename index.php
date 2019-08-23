@@ -2,7 +2,7 @@
 <?php
 
 include ("requetes.php");
-include ("vm/virtualmachines1.php");
+
 
 ?>
 
